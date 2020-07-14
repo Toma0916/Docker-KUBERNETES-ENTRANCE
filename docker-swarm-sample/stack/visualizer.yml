@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  app:
+    image: dockersamples/visualizer # docker Swarm で使える管理UI
+    ports:
+      - "9000:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      mode: global # 特定のコンテナをクラスタ上の全ノードに配置する設定　<-> replicated
+      placement:
+        constraints: [node.role == manager]
